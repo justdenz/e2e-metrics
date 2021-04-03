@@ -200,26 +200,40 @@ def create_mteval_file(refs, path, file_type):
         fh.write('</%s>' % settype)
 
 
-def load_data(ref_file, sys_file, src_file=None):
-    print("Fdasfsdafasfds")
+def load_data(ref_file, sys_file=True, src_file=None):
     """Load the data from the given files."""
-    # read SRC/SYS files
-    if src_file:
-        data_src, data_sys = read_and_check_tsv(sys_file, src_file)
-    elif re.search('\.[ct]sv$', sys_file, re.I):
-        data_src, data_sys = read_tsv(sys_file, HEADER_SRC, HEADER_SYS)
-    else:
-        data_sys = read_lines(sys_file)
-        # dummy source files (sources have no effect on measures, but MTEval wants them)
-        data_src = [''] * len(data_sys)
 
-    # read REF file
-    if re.search('\.[ct]sv$', ref_file, re.I):
-        data_ref = read_and_group_tsv(ref_file, data_src)
-    else:
-        data_ref = read_lines(ref_file, multi_ref=True)
-        if len(data_ref) == 1:  # this was apparently a single-ref file -> fix the structure
-            data_ref = [[inst] for inst in data_ref[0]]
+    data_sys = [] #index 0
+    data_ref = []
+
+    with open(ref_file, 'r') as f:
+      reader = csv.reader(f)
+      for row in reader:
+        data_sys.append(row[0])
+        temp_ref = []
+        for i in range(len(row)):
+          if i > 0:
+            temp_ref.append(row[i])
+        data_ref.append(temp_ref)
+    
+    data_src = [''] * len(data_sys)
+
+    # read SRC/SYS files
+    # if src_file:
+    #     data_src, data_sys = read_and_check_tsv(sys_file, src_file)
+    # elif re.search('\.[ct]sv$', sys_file, re.I):
+    #     data_src, data_sys = read_tsv(sys_file, HEADER_SRC, HEADER_SYS)
+    # else:
+    #     data_sys = read_lines(sys_file)
+    #     # dummy source files (sources have no effect on measures, but MTEval wants them)
+    #     data_src = [''] * len(data_sys)
+    # # read REF file
+    # if re.search('\.[ct]sv$', ref_file, re.I):
+    #     data_ref = read_and_group_tsv(ref_file, data_src)
+    # else:
+    #     data_ref = read_lines(ref_file, multi_ref=True)
+    #     if len(data_ref) == 1:  # this was apparently a single-ref file -> fix the structure
+    #         data_ref = [[inst] for inst in data_ref[0]]
 
     # sanity check
     assert(len(data_ref) == len(data_sys) == len(data_src))
