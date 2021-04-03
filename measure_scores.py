@@ -201,6 +201,7 @@ def create_mteval_file(refs, path, file_type):
 
 
 def load_data(ref_file, sys_file, src_file=None):
+    print("Fdasfsdafasfds")
     """Load the data from the given files."""
     # read SRC/SYS files
     if src_file:
