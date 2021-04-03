@@ -200,7 +200,7 @@ def create_mteval_file(refs, path, file_type):
         fh.write('</%s>' % settype)
 
 
-def load_data(ref_file, sys_file=True, src_file=None):
+def load_data(ref_file, src_file=None):
     """Load the data from the given files."""
 
     data_sys = [] #index 0
@@ -384,12 +384,12 @@ if __name__ == '__main__':
                     'by empty lines (or single-reference with no empty lines). Can also be a TSV ' +
                     'file with source & reference columns. In that case, consecutive identical ' +
                     'SRC columns are grouped as multiple references for the same source.')
-    ap.add_argument('sys_file', type=str, help='System output file to evaluate (text file with ' +
-                    'one output per line, or a TSV file with sources & corresponding outputs).')
+    # ap.add_argument('sys_file', type=str, help='System output file to evaluate (text file with ' +
+    #                 'one output per line, or a TSV file with sources & corresponding outputs).')
     args = ap.parse_args()
 
-    data_src, data_ref, data_sys = load_data(args.ref_file, args.sys_file, args.src_file)
+    data_src, data_ref, data_sys = load_data(args.ref_file, args.src_file)
     if args.sent_level is not None:
         sent_level_scores(data_src, data_ref, data_sys, args.sent_level)
     else:
-        evaluate(data_src, data_ref, data_sys, args.table, args.header, args.sys_file, args.python)
+        evaluate(data_src, data_ref, data_sys, args.table, args.header, args.python)
