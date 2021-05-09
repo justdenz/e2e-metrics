@@ -1088,27 +1088,27 @@ sub min
 
 sub printout_report
 {
-	if ( $METHOD eq "BOTH" )
-	{
-		foreach my $sys (sort @tst_sys)
-		{
-			printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
-		}
-	}
-	elsif ($METHOD eq "NIST" )
-	{
-		foreach my $sys (sort @tst_sys)
-		{
-			printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
-		}
-	}
-	elsif ($METHOD eq "BLEU" )
-	{
-		foreach my $sys (sort @tst_sys)
-		{
-			printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
-		}
-	}
+	# if ( $METHOD eq "BOTH" )
+	# {
+	# 	foreach my $sys (sort @tst_sys)
+	# 	{
+	# 		printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
+	# 	}
+	# }
+	# elsif ($METHOD eq "NIST" )
+	# {
+	# 	foreach my $sys (sort @tst_sys)
+	# 	{
+	# 		printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
+	# 	}
+	# }
+	# elsif ($METHOD eq "BLEU" )
+	# {
+	# 	foreach my $sys (sort @tst_sys)
+	# 	{
+	# 		printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
+	# 	}
+	# }
 	printf "\n# ------------------------------------------------------------------------\n\n";
 	printf "Individual N-gram scoring\n";
 	printf "        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram\n";
