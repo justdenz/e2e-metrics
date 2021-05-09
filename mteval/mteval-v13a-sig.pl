@@ -1093,21 +1093,21 @@ sub printout_report
 	{
 		foreach my $sys (sort @tst_sys)
 		{
-			# printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
+			printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
 		}
 	}
 	elsif ($METHOD eq "NIST" )
 	{
 		foreach my $sys (sort @tst_sys)
 		{
-			# printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
+			printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
 		}
 	}
 	elsif ($METHOD eq "BLEU" )
 	{
 		foreach my $sys (sort @tst_sys)
 		{
-			# printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
+			printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
 		}
 	}
 	printf "\n# ------------------------------------------------------------------------\n\n";
