@@ -123,6 +123,7 @@ binmode STDERR, ":utf8";
 # Intro
 my ($date, $time) = date_time_stamp();
 print "MT evaluation scorer began on $date at $time\n";
+print "command line:  ", $0, " ", join(" ", @ARGV), "\n";
 my $usage = "\n\nUsage: $0 -r <ref_file> -s <src_file> -t <tst_file> -f <stats_file>\n\n".
     "Description:  This Perl script evaluates MT system performance.\n".
     "\n".
@@ -259,15 +260,15 @@ my %BLEUOverall;
 
 ######
 # Evaluate
-# print "  Evaluation of $src_lang-to-$tgt_lang translation using:\n";
-# my $cum_seg = 0;
-# foreach my $doc (sort keys %eval_docs)
-# {
-# 	$cum_seg += scalar( keys( %{$eval_docs{$doc}{SEGS}} ) );
-# }
-# print "    src set \"$src_id\" (", scalar keys %eval_docs, " docs, $cum_seg segs)\n";
-# print "    ref set \"$ref_id\" (", scalar keys %ref_data, " refs)\n";
-# print "    tst set \"$tst_id\" (", scalar keys %tst_data, " systems)\n\n";
+print "  Evaluation of $src_lang-to-$tgt_lang translation using:\n";
+my $cum_seg = 0;
+foreach my $doc (sort keys %eval_docs)
+{
+	$cum_seg += scalar( keys( %{$eval_docs{$doc}{SEGS}} ) );
+}
+print "    src set \"$src_id\" (", scalar keys %eval_docs, " docs, $cum_seg segs)\n";
+print "    ref set \"$ref_id\" (", scalar keys %ref_data, " refs)\n";
+print "    tst set \"$tst_id\" (", scalar keys %tst_data, " systems)\n\n";
 
 foreach my $sys (sort @tst_sys)
 {
@@ -1088,27 +1089,27 @@ sub min
 
 sub printout_report
 {
-	# if ( $METHOD eq "BOTH" )
-	# {
-	# 	foreach my $sys (sort @tst_sys)
-	# 	{
-	# 		printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
-	# 	}
-	# }
-	# elsif ($METHOD eq "NIST" )
-	# {
-	# 	foreach my $sys (sort @tst_sys)
-	# 	{
-	# 		printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
-	# 	}
-	# }
-	# elsif ($METHOD eq "BLEU" )
-	# {
-	# 	foreach my $sys (sort @tst_sys)
-	# 	{
-	# 		printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
-	# 	}
-	# }
+	if ( $METHOD eq "BOTH" )
+	{
+		foreach my $sys (sort @tst_sys)
+		{
+			printf "NIST score = %2.4f  BLEU score = %.4f for system \"$sys\"\n",$NISTmt{5}{$sys}{cum},$BLEUmt{4}{$sys}{cum};
+		}
+	}
+	elsif ($METHOD eq "NIST" )
+	{
+		foreach my $sys (sort @tst_sys)
+		{
+			printf "NIST score = %2.4f  for system \"$sys\"\n",$NISTmt{5}{$sys}{cum};
+		}
+	}
+	elsif ($METHOD eq "BLEU" )
+	{
+		foreach my $sys (sort @tst_sys)
+		{
+			printf "\nBLEU score = %.4f for system \"$sys\"\n",$BLEUmt{4}{$sys}{cum};
+		}
+	}
 	printf "\n# ------------------------------------------------------------------------\n\n";
 	printf "Individual N-gram scoring\n";
 	printf "        1-gram   2-gram   3-gram   4-gram   5-gram   6-gram   7-gram   8-gram   9-gram\n";
