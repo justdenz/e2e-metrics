@@ -273,6 +273,7 @@ def run_mteval(data_ref, data_sys, data_src):
     """Run document-level BLEU and NIST via mt-eval13b (Perl)."""
     # create temp directory
     temp_path = mkdtemp(prefix='e2e-eval-')
+    print('Creating temp directory ', temp_path, file=sys.stderr)
 
     # create MTEval files
     mteval_ref_file = os.path.join(temp_path, 'mteval_ref.sgm')
@@ -284,6 +285,7 @@ def run_mteval(data_ref, data_sys, data_src):
     mteval_log_file = os.path.join(temp_path, 'mteval_log.txt')
 
     # run MTEval
+    print('Running MTEval to compute BLEU & NIST...', file=sys.stderr)
     mteval_path = os.path.join(os.path.dirname(os.path.realpath(__file__)),
                                'mteval', 'mteval-v13a-sig.pl')
     mteval_out = subprocess.check_output(['perl', mteval_path,
@@ -297,6 +299,7 @@ def run_mteval(data_ref, data_sys, data_src):
     print(mteval_out, file=sys.stderr)
 
     # delete the temporary directory
+    print('Removing temp directory', file=sys.stderr)
     shutil.rmtree(temp_path)
 
     return {'NIST': nist, 'BLEU': bleu}
@@ -305,6 +308,7 @@ def run_mteval(data_ref, data_sys, data_src):
 def run_pymteval(data_ref, data_sys):
     """Run document-level BLEU and NIST in their Python implementation (should give the
     same results as Perl)."""
+    print('Running Py-MTEval metrics...', file=sys.stderr)
     bleu = BLEUScore()
     nist = NISTScore()
 
@@ -324,6 +328,7 @@ def run_coco_eval(data_ref, data_sys):
     coco_ref = create_coco_refs(data_ref)
     coco_sys = create_coco_sys(data_sys)
 
+    print('Running MS-COCO evaluator...', file=sys.stderr)
     coco = COCO()
     coco.dataset = coco_ref
     coco.createIndex()
