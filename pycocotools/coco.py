@@ -84,7 +84,6 @@ class COCO(object):
 
     def createIndex(self):
         # create index
-        print('creating index...', file=sys.stderr)
         imgToAnns = {ann['image_id']: [] for ann in self.dataset['annotations']}
         anns =      {ann['id']:       [] for ann in self.dataset['annotations']}
         for ann in self.dataset['annotations']:
@@ -105,7 +104,6 @@ class COCO(object):
             for ann in self.dataset['annotations']:
                 catToImgs[ann['category_id']] += [ann['image_id']]
 
-        print('index created!', file=sys.stderr)
 
         # create class members
         self.anns = anns
@@ -279,7 +277,6 @@ class COCO(object):
         res.dataset['type'] = copy.deepcopy(self.dataset['type'])
         res.dataset['licenses'] = copy.deepcopy(self.dataset['licenses'])
 
-        print('Loading and preparing results...     ', file=sys.stderr)
         time_t = datetime.datetime.utcnow()
         if resData:
             anns = resData
@@ -310,7 +307,6 @@ class COCO(object):
                 ann['bbox'] = []
                 ann['id'] = id
                 ann['iscrowd'] = 0
-        print('DONE (t=%0.2fs)'%((datetime.datetime.utcnow() - time_t).total_seconds()), file=sys.stderr)
 
         res.dataset['annotations'] = anns
         res.createIndex()

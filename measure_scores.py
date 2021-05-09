@@ -327,8 +327,6 @@ def run_coco_eval(data_ref, data_sys):
     # convert references and system outputs to MS-COCO format in-memory
     coco_ref = create_coco_refs(data_ref)
     coco_sys = create_coco_sys(data_sys)
-
-    print('Running MS-COCO evaluator...', file=sys.stderr)
     coco = COCO()
     coco.dataset = coco_ref
     coco.createIndex()
