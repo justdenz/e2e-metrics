@@ -31,7 +31,6 @@ class COCOEvalCap(object):
         # =================================================
         # Set up scorers
         # =================================================
-        print('tokenization...', file=sys.stderr)
         tokenizer = PTBTokenizer()
         gts  = tokenizer.tokenize(gts)
         res = tokenizer.tokenize(res)
@@ -39,7 +38,6 @@ class COCOEvalCap(object):
         # =================================================
         # Set up scorers
         # =================================================
-        print('setting up scorers...', file=sys.stderr)
         scorers = [
             (Meteor(),"METEOR"),
             (Rouge(), "ROUGE_L"),
@@ -50,7 +48,6 @@ class COCOEvalCap(object):
         # Compute scores
         # =================================================
         for scorer, method in scorers:
-            print('computing %s score...'%(scorer.method()), file=sys.stderr)
             score, scores = scorer.compute_score(gts, res)
             if type(method) == list:
                 for sc, scs, m in zip(score, scores, method):
